@@ -23,8 +23,8 @@ node *insert(node* tree, int x){
 	return tree;
 }
 
-node *insertD(nodeD* tree, double x){
-	if(tree == NULL){
+nodeD *insertD(nodeD* treeD, double x){
+	if(treeD == NULL){
 		nodeD *root = (nodeD*)malloc(sizeof(nodeD));
 		root -> left = NULL;
 		root -> right = NULL;
@@ -32,16 +32,16 @@ node *insertD(nodeD* tree, double x){
 		return root;
 	}
 	
-	nodeD *iter = tree;
+	nodeD *iter = treeD;
 	
 	if(iter->data < x){
-		tree -> right = insert(tree -> right, x);
-		return tree;	
+		treeD -> right = insertD(treeD -> right, x);
+		return treeD;	
 	}
 	
-	tree->left = insert(tree -> left, x);	
+	treeD->left = insertD(treeD -> left, x);	
 
-	return tree;
+	return treeD;
 }
 
 node *deleteNode(node *tree, int x){
@@ -99,42 +99,6 @@ void findNodeD(nodeD *tree,double x)
 		findNode(tree->right,x);
 }
 
-void travers(node *tree){
-	if(tree == NULL) return;
-	travers(tree->left);
-	printf("%d  ", tree->data);
-	travers(tree->right);
-}
-
-void inorder(node *tree){
-    if(tree == NULL){
-        return;
-    }
-
-    inorder(tree->left);
-    printf("%d ", tree->data);
-    inorder(tree->right);
-}
-
-void preorder(node *tree){
-    if(tree == NULL){
-        return;
-    }
-
-    printf("%d ", tree->data);
-    preorder(tree->left);
-    preorder(tree->right);
-}
-
-void postorder(node *tree){
-    if(tree == NULL){
-        return;
-    }
-
-    postorder(tree->left);
-    postorder(tree->right);
-    printf("%d ", tree->data);
-}
 
 int TreeHeight(node *tree){
     if(tree ==NULL){
@@ -186,26 +150,3 @@ int findMin(node *tree){
 
 
 
-void printCurrent(node *tree, int level){
-    if(tree == NULL){
-        return;
-    }
-
-    if(level == 1){ 
-        printf("%d ", tree->data);
-    } 
-
-    else if(level > 1){ 
-        printCurrent(tree->left, level-1); 
-        printCurrent(tree->right, level-1); 
-    } 
-}
-
-void levelorder(node *tree){
-    int height = TreeHeight(tree);
-
-    for(int i = 0; i <= height; i++){
-        printCurrent(tree, i);
-        printf("\n");
-    }
-}
